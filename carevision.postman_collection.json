@@ -1,0 +1,108 @@
+{
+	"info": {
+		"_postman_id": "88ec9aa9-89e7-4db8-a5b2-6158f97a00dc",
+		"name": "carevision",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add Event API",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "csrfToken=688f8c4708c319431b293d16fa585985cb530001d166f230d27d40af48124a933009271ebcab5fde164bf6199c6f72aaf377e88a1672e329fe3a96a2a9041d91",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"event_name\":\"Test Event\",\n    \"frequency\":\"once_off\",\n    \"start_date_time\":\"2021-04-01 05:00\",\n    \"end_date_time\":\"2021-04-20 05:00\",\n    \"duration\":60,\n    \"invitees\":[1,2]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8765/Event/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"Event",
+						"add"
+					]
+				},
+				"description": "Post API to create new event.\n\n## Special notes and conventions for this API\n- `frequency` should be in string and one out of the following : `[\"once_off\", \"weekly\", \"monthly\"]`\n- `duration` should be in integer : default set to `60` minutes\n- `start_date_time` and all dates should be in `YYYY-MM-DD HH:MM` format\n- `invitees` should be in `array` : `[1,2,3]` format for `POST` API\n- `frequency` for `weekly` : if `end_date_time` is not provided then API will consider for next `1 year` of event instances by default\n- `frequency` for `monthly` : if `end_date_time` is not provided then API will consider for next `1 year` of event instances by default"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Event Instances API",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "csrfToken=688f8c4708c319431b293d16fa585985cb530001d166f230d27d40af48124a933009271ebcab5fde164bf6199c6f72aaf377e88a1672e329fe3a96a2a9041d91",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8765/Event/get?from=2021-04-01 01:00&to=2021-04-25 09:00&invitees=1,2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"Event",
+						"get"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "2021-04-01 01:00"
+						},
+						{
+							"key": "to",
+							"value": "2021-04-25 09:00"
+						},
+						{
+							"key": "invitees",
+							"value": "1,2"
+						}
+					]
+				},
+				"description": "Get API which returns the list of instances based on : {from, to, invitees}\n\n## Special notes and conventions for this API\n\n- `from` and `to` dates should be in `YYYY-MM-DD HH:MM` format\n- `invitees` should be in `string` : `\"1,2,3\"` format for `GET` API\n- `frequency` for `weekly` events : if `end_date_time` is not provided then API will return for next `1 year` of event instances by default\n- `frequency` for `monthly` events : if `end_date_time` is not provided then API will return for next `1 year` of event instances by default"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8765/Users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"Users"
+					]
+				},
+				"description": "This API returns the list of Users in the Users table"
+			},
+			"response": []
+		}
+	]
+}
